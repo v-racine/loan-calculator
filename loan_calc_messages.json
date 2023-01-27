@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome to my Mortgage Loan Calculator!",
+  "loanAmount": "Please enter your loan amount.",
+  "invalidNumber": "Hmm... that doesn't look like a valid input. Please enter a positive number.",
+  "apr": "Please enter your Annual Percentage Rate; e.g. enter 5 for 5%.",
+  "loanDurationYears": "Please enter your Loan Duration in years.",
+  "result": "Your monthly payment is: $"
+  } 
