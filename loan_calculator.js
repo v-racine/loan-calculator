@@ -6,12 +6,6 @@
 
 //Print the monthly payment to the terminal
 
-//Variables:
-// monthlyPayment;
-// loanAmount;
-// monthlyIntRate;
-// loanDurationMonths;
-
 // let monthlyPayment =
 //   loanAmount *
 //   (monthlyIntRate / (1 - Math.pow(1 + monthlyIntRate, -loanDurationM)));
