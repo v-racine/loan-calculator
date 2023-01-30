@@ -18,20 +18,26 @@
 
 const READLINE = require("readline-sync");
 const MESSAGES = require("./loan_calc_messages.json");
+const MONTHS = 12;
 
 //main function
 function loanCalculator() {
   greeting();
   let num;
-  const loanAmount = determineLoanAmount(num);
-  const loanDurationMonths = determineLoanDuration(num);
-  const monthlyInterestRate = determineMonthlyInterestRate(num);
-  const monthlyPayment = determineMonthlyPayment(
-    loanAmount,
-    loanDurationMonths,
-    monthlyInterestRate
-  );
-  printMonthlyPayment(monthlyPayment);
+  let anotherCalc = "y";
+  while (anotherCalc === "y") {
+    const loanAmount = determineLoanAmount(num);
+    const loanDurationMonths = determineLoanDuration(num);
+    const monthlyInterestRate = determineMonthlyInterestRate(num);
+    const monthlyPayment = determineMonthlyPayment(
+      loanAmount,
+      loanDurationMonths,
+      monthlyInterestRate
+    );
+    printMonthlyPayment(monthlyPayment);
+    anotherCalc = keepCalculating();
+    console.clear();
+  }
 }
 
 loanCalculator();
@@ -62,7 +68,7 @@ function determineLoanDuration(num) {
     num = READLINE.question();
   }
 
-  return Number(num) * 12;
+  return Number(num) * MONTHS;
 }
 
 function determineMonthlyInterestRate(num) {
@@ -74,7 +80,7 @@ function determineMonthlyInterestRate(num) {
     num = READLINE.question();
   }
 
-  return Number(num) / 12 / 100;
+  return Number(num) / MONTHS / 100;
 }
 
 function determineMonthlyPayment(
@@ -92,6 +98,22 @@ function determineMonthlyPayment(
 
 function printMonthlyPayment(result) {
   console.log(MESSAGES["result"], result);
+}
+
+function keepCalculating() {
+  prompt(MESSAGES["runProgram"]);
+  let anotherCalc = READLINE.question();
+
+  while (!validAnswer(anotherCalc)) {
+    prompt(MESSAGES["invalidChoice"]);
+    anotherCalc = READLINE.question();
+  }
+  return anotherCalc.toLowerCase();
+}
+
+function validAnswer(input) {
+  input = input.toLowerCase();
+  return ["y", "yes", "n", "no"].includes(input);
 }
 
 function invalidNumber(number) {
