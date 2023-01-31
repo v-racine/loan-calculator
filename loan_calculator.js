@@ -13,6 +13,7 @@
 const READLINE = require("readline-sync");
 const MESSAGES = require("./loan_calc_messages.json");
 const MONTHS = 12;
+const DIVISION_TO_GET_PERCENTAGE = 100;
 
 //main function
 function loanCalculator() {
@@ -74,7 +75,7 @@ function determineMonthlyInterestRate(num) {
     num = READLINE.question();
   }
 
-  return Number(num) / MONTHS / 100;
+  return Number(num) / MONTHS / DIVISION_TO_GET_PERCENTAGE;
 }
 
 function determineMonthlyPayment(
