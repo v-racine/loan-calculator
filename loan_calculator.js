@@ -10,7 +10,7 @@
 //   loanAmount *
 //   (monthlyIntRate / (1 - Math.pow(1 + monthlyIntRate, -loanDurationM)));
 
-const READLINE = require("readline-sync");
+const readline = require("readline-sync");
 const MESSAGES = require("./loan_calc_messages.json");
 const MONTHS = 12;
 const DIVISION_TO_GET_PERCENTAGE = 100;
@@ -18,12 +18,11 @@ const DIVISION_TO_GET_PERCENTAGE = 100;
 //main function
 function loanCalculator() {
   greeting();
-  let num;
   let anotherCalc = "y";
-  while (anotherCalc === "y") {
-    const loanAmount = determineLoanAmount(num);
-    const loanDurationMonths = determineLoanDuration(num);
-    const monthlyInterestRate = determineMonthlyInterestRate(num);
+  while (anotherCalc === "y" || anotherCalc === "yes") {
+    const loanAmount = determineLoanAmount();
+    const loanDurationMonths = determineLoanDuration();
+    const monthlyInterestRate = determineMonthlyInterestRate();
     const monthlyPayment = determineMonthlyPayment(
       loanAmount,
       loanDurationMonths,
@@ -33,6 +32,7 @@ function loanCalculator() {
     anotherCalc = keepCalculating();
     console.clear();
   }
+  prompt(MESSAGES["farewell"]);
 }
 
 loanCalculator();
@@ -42,39 +42,38 @@ function greeting() {
   prompt(MESSAGES["welcome"]);
 }
 
-function determineLoanAmount(num) {
+function determineLoanAmount() {
   prompt(MESSAGES["loanAmount"]);
-  num = READLINE.question();
+  let num = readline.question();
 
   while (invalidNumber(num)) {
     prompt(MESSAGES["invalidNumber"]);
-    num = READLINE.question();
+    num = readline.question();
   }
 
   return Number(num);
 }
 
-function determineLoanDuration(num) {
+function determineLoanDuration() {
   prompt(MESSAGES["loanDurationYears"]);
-  num = READLINE.question();
+  let num = readline.question();
 
   while (invalidNumber(num)) {
     prompt(MESSAGES["invalidNumber"]);
-    num = READLINE.question();
+    num = readline.question();
   }
 
   return Number(num) * MONTHS;
 }
 
-function determineMonthlyInterestRate(num) {
+function determineMonthlyInterestRate() {
   prompt(MESSAGES["apr"]);
-  num = READLINE.question();
+  let num = readline.question();
 
   while (invalidNumber(num)) {
     prompt(MESSAGES["invalidNumber"]);
-    num = READLINE.question();
+    num = readline.question();
   }
-
   return Number(num) / MONTHS / DIVISION_TO_GET_PERCENTAGE;
 }
 
@@ -97,25 +96,23 @@ function printMonthlyPayment(result) {
 
 function keepCalculating() {
   prompt(MESSAGES["runProgram"]);
-  let anotherCalc = READLINE.question();
+  anotherCalc = readline.question();
 
-  while (!validAnswer(anotherCalc)) {
+  while (!validYesOrNo(anotherCalc)) {
     prompt(MESSAGES["invalidChoice"]);
-    anotherCalc = READLINE.question();
+    anotherCalc = readline.question();
   }
   return anotherCalc.toLowerCase();
 }
 
-function validAnswer(input) {
+function validYesOrNo(input) {
   input = input.toLowerCase();
   return ["y", "yes", "n", "no"].includes(input);
 }
 
-function invalidNumber(number) {
+function invalidNumber(num) {
   return (
-    number.trimStart() === "" ||
-    Number.isNaN(Number(number)) ||
-    Number(number) <= 0
+    num.trimStart() === "" || Number.isNaN(Number(num)) || Number(num) <= 0
   );
 }
 

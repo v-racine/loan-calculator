@@ -6,5 +6,6 @@
   "loanDurationYears": "Please enter your Loan Duration in years.",
   "result": "Your monthly payment is: $",
   "runProgram": "Would you like to perform another calculation? (Y/N)",
-  "invalidChoice": "Invalid Choice: Please choose Yes or No."
+  "invalidChoice": "Invalid Choice: Please choose Yes or No.",
+  "farewell": "Thanks for using my Mortgage Loan Calculator! Goodbye!"
   } 
